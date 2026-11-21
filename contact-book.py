@@ -1,9 +1,14 @@
 contacts = {}   # dict: tên -> số điện thoại
 
 def add_contact(name, phone):
-    # TODO: thêm vào dict; nếu tên đã có thì báo trùng
     name=name.strip()
     phone=phone.strip()
+    if not name:
+        print("Không thể để tên trống")
+        return False
+    if not phone.isdigit():
+        print("Số không hợp lệ")
+        return False
     if name in contacts: 
         print("Tên trùng lặp")
         return False
@@ -15,7 +20,6 @@ def add_contact(name, phone):
     return True
 
 def delete_contact(name):
-    # TODO: xóa nếu tồn tại, ngược lại báo "không tìm thấy"
     name=name.strip()
     if name not in contacts:
         print("Tên không tồn tại.")
@@ -25,7 +29,6 @@ def delete_contact(name):
     return True
 
 def search_contact(keyword):
-    # TODO: trả về list các tên có chứa keyword (không phân biệt hoa thường)
     keyword=keyword.strip()
     result=[x for x in contacts if keyword.lower() in x.lower()]
     if len(result)==0:
@@ -36,7 +39,6 @@ def search_contact(keyword):
     return True
 
 def show_all():
-    # TODO: in danh bạ, sắp xếp theo tên
     if len(contacts)==0:
         print("Danh bạ trống")
     else:
@@ -44,26 +46,28 @@ def show_all():
             print(f"{name:<15}{phone}")
 
 def main():
-    # TODO: vòng lặp while hiển thị menu 1-Thêm 2-Xóa 3-Tìm 4-Xem 0-Thoát
-    while True:
-        print("1-Thêm 2-Xoá 3-Tìm 4-Xem 0-Thoát")
-        choice=input("Chọn: ")
-        if choice=='1':
-            name=input("Nhập tên cần thêm: ")
-            phone=input("Nhập số: ")
-            add_contact(name,phone)
-        elif choice=='2':
-            name=input("Nhập tên cần xoá: ")
-            delete_contact(name)
-        elif choice=='3':
-            keyword=input("Nhập: ")
-            search_contact(keyword)
-        elif choice=='4':
-            show_all()
-        elif choice=='0':
-            print("Tạm biệt!")
-            break
-        else:
-            print("Không hợp lệ")
+    try:
+        while True:
+            print("1-Thêm 2-Xoá 3-Tìm 4-Xem 0-Thoát")
+            choice=input("Chọn: ").strip()
+            if choice=='1':
+                name=input("Nhập tên cần thêm: ")
+                phone=input("Nhập số: ")
+                add_contact(name,phone)
+            elif choice=='2':
+                name=input("Nhập tên cần xoá: ")
+                delete_contact(name)
+            elif choice=='3':
+                keyword=input("Nhập: ")
+                search_contact(keyword)
+            elif choice=='4':
+                show_all()
+            elif choice=='0':
+                print("Tạm biệt!")
+                break
+            else:
+                print("Không hợp lệ")
+    except (KeyboardInterrupt,EOFError):
+        print("\nTạm biệt!")
 
 main()
