@@ -8,6 +8,7 @@
 - Tìm theo tên, không phân biệt hoa thường
 - Hiển thị danh bạ sắp xếp theo tên
 - Thoát an toàn bằng `0` hoặc `Ctrl + C`
+- Tự động lưu danh bạ vào file `contact.json`, mở lại không mất dữ liệu
 
 ## Yêu cầu
 Python 3.8 trở lên
@@ -16,6 +17,9 @@ Python 3.8 trở lên
 ```bash
 python contact-book.py
 ```
+
+Lần chạy đầu tiên, file `contact.json` sẽ được tạo trong thư mục dự án ở lần thêm liên hệ đầu tiên.
+File này chứa dữ liệu cá nhân nên đã được đưa vào `.gitignore` và không được đẩy lên GitHub.
 
 ## Ví dụ
 ```
@@ -30,4 +34,11 @@ Nhập số: 0901
 - dict, list comprehension
 - hàm với `return True/False`
 - vòng lặp `while`, f-string
-- xử lý lỗi `try/except`
+- xử lý lỗi `try/except` (`KeyboardInterrupt`, `FileNotFoundError`, `JSONDecodeError`)
+- đọc/ghi file với `with open(...)`, module `json`
+- `.gitignore` để không đưa dữ liệu cá nhân lên GitHub
+
+## Kế hoạch
+- [x] Kiểm tra dữ liệu nhập và thoát an toàn
+- [x] Lưu danh bạ ra file JSON
+- [ ] Tách code thành module
