@@ -1,4 +1,19 @@
-contacts = {}   # dict: tên -> số điện thoại
+import json
+
+FILE="contact.json"
+
+def save_contacts():
+    with open(FILE,"w",encoding="utf8") as f:
+        json.dump(contacts,f, ensure_ascii=False, indent=2)
+
+def load_contacts():
+    try:
+        with open(FILE,encoding="utf8") as f:
+            return json.load(f)
+    except (FileNotFoundError,json.JSONDecodeError):
+        return {}
+
+contacts = load_contacts()
 
 def add_contact(name, phone):
     name=name.strip()
@@ -53,10 +68,12 @@ def main():
             if choice=='1':
                 name=input("Nhập tên cần thêm: ")
                 phone=input("Nhập số: ")
-                add_contact(name,phone)
+                if add_contact(name,phone):
+                    save_contacts()
             elif choice=='2':
                 name=input("Nhập tên cần xoá: ")
-                delete_contact(name)
+                if delete_contact(name):
+                    save_contacts()
             elif choice=='3':
                 keyword=input("Nhập: ")
                 search_contact(keyword)
